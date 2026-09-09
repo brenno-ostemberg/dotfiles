@@ -1,0 +1,9 @@
+# Gerenciado pelo chezmoi. PATH e ferramentas ficam em ~/.config/shell/00-env.sh.
+
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
+fi
+
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]; then
+  export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+fi
