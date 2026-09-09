@@ -1,0 +1,36 @@
+# Gerenciado pelo chezmoi. Portáveis ficam em ~/.config/shell/*.sh (bash + zsh).
+# Só desta máquina: ~/.config/shell/99-local.sh
+
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+# Histórico
+
+HISTCONTROL=ignoreboth
+HISTSIZE=50000
+HISTFILESIZE=200000
+shopt -s histappend
+shopt -s checkwinsize
+
+command -v lesspipe >/dev/null 2>&1 && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Fragmentos compartilhados (00-env define PATH/brew, então vem primeiro)
+
+for _frag in "$HOME"/.config/shell/*.sh; do
+  [ -r "$_frag" ] && . "$_frag"
+done
+unset _frag
+
+# Completion
+
+if ! shopt -oq posix; then
+  if [ -r "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]; then
+    . "$BREW_PREFIX/etc/profile.d/bash_completion.sh"
+  elif [ -r /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -r /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi

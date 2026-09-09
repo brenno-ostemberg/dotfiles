@@ -1,0 +1,30 @@
+# Gerenciado pelo chezmoi. Portáveis ficam em ~/.config/shell/*.sh (bash + zsh).
+# Só desta máquina: ~/.config/shell/99-local.sh
+
+# Histórico
+
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt append_history
+setopt share_history
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=200000
+
+# Fragmentos compartilhados (00-env define PATH/brew, então vem primeiro)
+
+# (N) = null_glob; sem ele o zsh aborta com "no matches found".
+for _frag in "$HOME"/.config/shell/*.sh(N); do
+  [ -r "$_frag" ] && source "$_frag"
+done
+unset _frag
+
+# Completion
+
+if [ -d "$BREW_PREFIX/share/zsh/site-functions" ]; then
+  FPATH="$BREW_PREFIX/share/zsh/site-functions:$FPATH"
+fi
+
+autoload -Uz compinit
+compinit

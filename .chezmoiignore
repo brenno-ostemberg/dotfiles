@@ -1,0 +1,16 @@
+# Fragmentos 90+ são locais de cada máquina: segredos e paths de trabalho.
+.config/shell/9*.sh
+
+# Substituído por .config/shell/98-sgv.sh
+.aliases_sgv
+.bash_aliases
+.bash_functions
+
+{{ if ne .chezmoi.os "linux" -}}
+.config/shell/50-linux.sh
+.local/bin/toggle-theme.sh
+{{- end }}
+
+{{ if ne .chezmoi.os "darwin" -}}
+.zshrc
+{{- end }}

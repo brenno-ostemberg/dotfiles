@@ -1,0 +1,34 @@
+# Geral
+
+alias ll='ls -alF' ## Lista arquivos detalhado
+alias la='ls -A' ## Lista arquivos ocultos
+alias l='ls -CF' ## Lista arquivos em colunas
+
+{{ if eq .chezmoi.os "darwin" -}}
+export CLICOLOR=1
+alias ls='ls -G' ## Lista arquivos com cor
+{{- else -}}
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto' ## Lista arquivos com cor
+fi
+{{- end }}
+
+alias grep='grep --color=auto' ## grep colorido
+alias fgrep='fgrep --color=auto' ## fgrep colorido
+alias egrep='egrep --color=auto' ## egrep colorido
+
+# Ferramentas
+
+alias n='nvim' ## Abre nvim
+alias lg='lazygit' ## Abre lazygit
+
+# Git
+
+alias gs='git status' ## Status do git
+alias gr='git restore' ## Restaura arquivo
+alias desfazer_ultimo_commit='git reset HEAD~1' ## Desfaz ultimo commit
+
+# Sistemas
+
+alias credis='redis-cli flushall && echo "Redis limpo com sucesso"' ## Limpa cache redis
