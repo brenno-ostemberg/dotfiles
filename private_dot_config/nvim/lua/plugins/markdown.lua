@@ -10,6 +10,7 @@ return {
     priority = 49, -- carrega depois do colorscheme (50)
     opts = {
       preview = {
+        enable = false,
         icon_provider = "mini",
         hybrid_modes = { "n" },
         linewise_hybrid_mode = true,
